@@ -1,18 +1,66 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="search">
+      <search-box />
+    </div>
+    <div class="shortcuts-section">
+      <h2 class="title">
+        Snelkoppelingen
+        <add-shortcut-button />
+      </h2>
+      <div class="shortcuts">
+        <shortcut
+          v-for="shortcut in getShortcuts"
+          :key="shortcut.id"
+          :name="shortcut.name"
+          :link="shortcut.link"
+          :description="shortcut.description"
+          :id="shortcut.id"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import SearchBox from "../components/SearchBox.vue";
+import Shortcut from "../components/Shortcut.vue";
+import AddShortcutButton from "../components/AddShortcutButton.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    SearchBox,
+    Shortcut,
+    AddShortcutButton,
+  },
+  computed: {
+    getShortcuts() {
+      const shortcuts = JSON.parse(localStorage.getItem("shortcuts")) || [];
+
+      return shortcuts;
+    },
+  },
+};
 </script>
+
+<style lang="scss" scoped>
+.search {
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.shortcuts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px 15px;
+  padding: 10px 0;
+}
+</style>
