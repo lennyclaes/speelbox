@@ -1,4 +1,7 @@
-# startpage
+# Speelbox
+A custom startpage for webbrowsers, designed for Speelplein De Speelberg.
+
+This was designed to be deployed locally.
 
 ## Project setup
 ```
